@@ -4,8 +4,9 @@ var $saveBtn = $('#save-btn');
 var $appendHere = $('.append-here');
 var $deleteBtn = $('#delete-btn');
 
-$appendHere.on('click', 'h3, p', enableEditableContent);
-$appendHere.on('keydown', 'h3, p', enterDisablesEditableContent);
+$('.append-here').on('click', 'h3, p', enableEditableContent);
+$('.append-here').on('keydown', 'h3, p', enterDisablesEditableContent);
+$('#search-field').on('keyup', filterIdeas);
 
 function NewCard (title, body, id, quality){
   this.title = title;
@@ -122,5 +123,14 @@ function enterDisablesEditableContent(e) {
   }
 }
 
-
-
+function filterIdeas() {
+ var search = $('#search-field').val().trim().toLowerCase();
+ $('article').each(function() {
+    var elementText = $(this).children('p, h2').text()
+    var test = false;
+    if (elementText.indexOf(search) > -1) {
+      test = true;
+    }
+    this.style.display = test ? '' : 'none';
+  });
+}
