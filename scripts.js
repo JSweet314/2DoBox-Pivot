@@ -4,6 +4,9 @@ var $saveBtn = $('#save-btn');
 var $appendHere = $('.append-here');
 var $deleteBtn = $('#delete-btn');
 
+$appendHere.on('click', 'h3, p', enableEditableContent);
+$appendHere.on('keydown', 'h3, p', enterDisablesEditableContent);
+
 function NewCard (title, body, id, quality){
   this.title = title;
   this.body = body;
@@ -14,8 +17,8 @@ function NewCard (title, body, id, quality){
 NewCard.prototype.prependCard = function() {
    $appendHere.prepend(`<article class="cards" id="${this.id}">
     <button class="top-card card-button" id="delete-btn"></button>
-    <h3 class="top-card" contenteditable=true>${this.title}</h3>
-    <p contenteditable=true>${this.body}</p>
+    <h3 class="top-card">${this.title}</h3>
+    <p>${this.body}</p>
     <button class="card-button bottom-line" id="upvote-btn"></button>
     <button class="card-button bottom-line" id="downvote-btn"></button>
     <h6 class="bottom-line">quality:<span class="quality-change">${this.quality}</span></h6>
@@ -107,7 +110,17 @@ $appendHere.on('blur', 'p', function (){
   localStorage.setItem(cardId, stringBody);
 });
 
+function enableEditableContent() {
+  $(this).attr('contenteditable', true);
+  $(this).focus();
+}
 
+function enterDisablesEditableContent(e) {
+  if (e.keyCode === 13){
+    $(this).attr('contenteditable', false);
+    $(this).blur();
+  }
+}
 
 
 
