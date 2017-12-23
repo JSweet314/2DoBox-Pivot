@@ -1,9 +1,3 @@
-var $titleInput = $('#input-title');
-var $bodyInput = $('#input-body');
-var $saveBtn = $('#save-btn');
-var $appendHere = $('.append-here');
-var $deleteBtn = $('#delete-btn');
-
 $('.append-here').on('click', 'h3, p', enableEditableContent);
 $('.append-here').on('keydown', 'h3, p', enterDisablesEditableContent);
 $('#search-field').on('keyup', filterIdeas);
@@ -16,24 +10,24 @@ function NewCard (title, body, id, quality){
 }
 
 NewCard.prototype.prependCard = function() {
-   $appendHere.prepend(`<article class="cards" id="${this.id}">
-    <button class="top-card card-button" id="delete-btn"></button>
-    <h3 class="top-card">${this.title}</h3>
-    <p>${this.body}</p>
-    <button class="card-button bottom-line" id="upvote-btn"></button>
-    <button class="card-button bottom-line" id="downvote-btn"></button>
-    <h6 class="bottom-line">quality:<span class="quality-change">${this.quality}</span></h6>
-    <hr>
-    </article>`);
+ $('.append-here').prepend(`<article class="cards" id="${this.id}">
+  <button class="top-card card-button" id="delete-btn"></button>
+  <h3 class="top-card">${this.title}</h3>
+  <p>${this.body}</p>
+  <button class="card-button bottom-line" id="upvote-btn"></button>
+  <button class="card-button bottom-line" id="downvote-btn"></button>
+  <h6 class="bottom-line">quality:<span class="quality-change">${this.quality}</span></h6>
+  <hr>
+  </article>`);
 };
 
-$saveBtn.on('click', function(event){
+$('#save-btn').on('click', function(event){
   event.preventDefault();
   var id = Date.now();
-  var card = new NewCard ($titleInput.val(), $bodyInput.val(), id);
+  var card = new NewCard ($('#input-title').val(), $('#input-body').val(), id);
   card.prependCard();
-  $titleInput.val("");
-  $bodyInput.val("");
+  $('#input-title').val("");
+  $('#input-body').val("");
   storeCard(card);
 });
 
@@ -43,23 +37,23 @@ function storeCard(card){
 }
 
 $(document).ready(getCard);
-  
+
 function getCard(){
   for(var i = 0; i < localStorage.length; i++){
-  var retrieveCard = localStorage.getItem(localStorage.key(i));
-  var parseCard = JSON.parse(retrieveCard);
-  var refreshCard = new NewCard (parseCard.title, parseCard.body, parseCard.id, parseCard.quality);
-  refreshCard.prependCard()
+    var retrieveCard = localStorage.getItem(localStorage.key(i));
+    var parseCard = JSON.parse(retrieveCard);
+    var refreshCard = new NewCard (parseCard.title, parseCard.body, parseCard.id, parseCard.quality);
+    refreshCard.prependCard()
   }
 }
 
-$appendHere.on('click', '#delete-btn', function(event) {
+$('.append-here').on('click', '#delete-btn', function(event) {
   var idRemoved = $(this).parent().attr('id');
   $(this).parent().remove();
   localStorage.removeItem(idRemoved);
 });
 
-$appendHere.on('click', '#upvote-btn', function(event) { 
+$('.append-here').on('click', '#upvote-btn', function(event) { 
   var cardId = $(this).parent().attr('id');
   var storedId = localStorage.getItem(cardId);
   var parseId = JSON.parse(storedId);
@@ -75,7 +69,7 @@ $appendHere.on('click', '#upvote-btn', function(event) {
   localStorage.setItem(cardId, stringedId);
 });
 
-$appendHere.on('click', '#downvote-btn', function(event) { 
+$('.append-here').on('click', '#downvote-btn', function(event) { 
   var cardId = $(this).parent().attr('id');
   var storedId = localStorage.getItem(cardId);
   var parseId = JSON.parse(storedId);
@@ -91,7 +85,7 @@ $appendHere.on('click', '#downvote-btn', function(event) {
   localStorage.setItem(cardId, stringedId);
 });
 
-$appendHere.on('blur', 'h3', function() {
+$('.append-here').on('blur', 'h3', function() {
   var cardId = $(this).parent().attr('id');
   var storedId = localStorage.getItem(cardId);
   var parseObject = JSON.parse(storedId);
@@ -101,7 +95,7 @@ $appendHere.on('blur', 'h3', function() {
   localStorage.setItem(cardId, stringTitle);
 });
 
-$appendHere.on('blur', 'p', function (){
+$('.append-here').on('blur', 'p', function (){
   var cardId = $(this).parent().attr('id');
   var storedId = localStorage.getItem(cardId);
   var parseObject = JSON.parse(storedId);
@@ -126,11 +120,11 @@ function enterDisablesEditableContent(e) {
 function filterIdeas() {
  var search = $('#search-field').val().trim().toLowerCase();
  $('article').each(function() {
-    var elementText = $(this).children('p, h2').text()
-    var test = false;
-    if (elementText.indexOf(search) > -1) {
-      test = true;
-    }
-    this.style.display = test ? '' : 'none';
-  });
+  var elementText = $(this).children('p, h3').text().trim().toLowerCase();
+  var test = false;
+  if (elementText.indexOf(search) > -1) {
+    test = true;
+  }
+  this.style.display = test ? '' : 'none';
+});
 }
