@@ -7,6 +7,7 @@ var $deleteBtn = $('#delete-btn');
 $('.append-here').on('click', 'h3, p', enableEditableContent);
 $('.append-here').on('keydown', 'h3, p', enterDisablesEditableContent);
 $('#search-field').on('keyup', filterIdeas);
+$('.header').on('keyup', '#input-title, #input-body', enableSaveButton);
 
 function NewCard (title, body, id, quality){
   this.title = title;
@@ -35,6 +36,7 @@ $saveBtn.on('click', function(event){
   $titleInput.val("");
   $bodyInput.val("");
   storeCard(card);
+  disableSaveButton();
 });
 
 function storeCard(card){
@@ -133,4 +135,18 @@ function filterIdeas() {
     }
     this.style.display = test ? '' : 'none';
   });
+}
+
+function enableSaveButton() {
+  var inputTittle = $('#input-title').val();
+  var inputBody = $('#input-body').val();
+    if (inputTittle == '' || inputBody == '') {
+      $('#save-btn').prop('disabled', true);
+    } else {
+      $('#save-btn').prop('disabled', false);
+    }
+}
+
+function disableSaveButton() {
+  $('#save-btn').prop('disabled', true);
 }
