@@ -65,6 +65,11 @@ p {
 	background-color: #045E55;
 }
 
+#save-btn:disabled {
+  background-color: #d0d2d3;
+  cursor: none;
+}
+
 .body {
   width: 61%;
   margin: auto;

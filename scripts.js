@@ -4,7 +4,6 @@ $('.append-here').on('keydown', 'h3, p', enterDisablesEditableContent);
 $('#search-field').on('keyup', filterIdeas);
 $('.header').on('keyup', '#input-title, #input-task', enableSaveButton);
 
-
 function NewCard (title, task, quality, id){
   this.id = id || Date.now();
   this.title = title;
@@ -132,7 +131,7 @@ function filterIdeas() {
 
 function enableSaveButton() {
   var inputTittle = $('#input-title').val();
-  var inputTask = $('#input-Task').val();
+  var inputTask = $('#input-task').val();
   if (inputTittle == '' || inputTask == '') {
     $('#save-btn').prop('disabled', true);
   } else {
