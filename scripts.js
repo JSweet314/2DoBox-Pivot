@@ -1,12 +1,14 @@
+$(document).ready(getCard);
 $('.append-here').on('click', 'h3, p', enableEditableContent);
 $('.append-here').on('keydown', 'h3, p', enterDisablesEditableContent);
 $('#search-field').on('keyup', filterIdeas);
-$('.header').on('keyup', '#input-title, #input-body', enableSaveButton);
+$('.header').on('keyup', '#input-title, #input-task', enableSaveButton);
 
-function NewCard (title, body, id, quality){
+
+function NewCard (title, task, quality, id){
+  this.id = id || Date.now();
   this.title = title;
-  this.body = body;
-  this.id = id;
+  this.task = task;
   this.quality = quality || ' swill';
 }
 
@@ -14,7 +16,7 @@ NewCard.prototype.prependCard = function() {
  $('.append-here').prepend(`<article class="cards" id="${this.id}">
   <button class="top-card card-button" id="delete-btn"></button>
   <h3 class="top-card">${this.title}</h3>
-  <p>${this.body}</p>
+  <p>${this.task}</p>
   <button class="card-button bottom-line" id="upvote-btn"></button>
   <button class="card-button bottom-line" id="downvote-btn"></button>
   <h6 class="bottom-line">quality:<span class="quality-change">${this.quality}</span></h6>
@@ -24,11 +26,10 @@ NewCard.prototype.prependCard = function() {
 
 $('#save-btn').on('click', function(event){
   event.preventDefault();
-  var id = Date.now();
-  var card = new NewCard ($('#input-title').val(), $('#input-body').val(), id);
+  var card = new NewCard ($('#input-title').val(), $('#input-task').val());
   card.prependCard();
   $('#input-title').val("");
-  $('#input-body').val("");
+  $('#input-task').val("");
   storeCard(card);
   disableSaveButton();
 });
@@ -38,13 +39,11 @@ function storeCard(card){
   localStorage.setItem(card.id, stringifiedCard);
 }
 
-$(document).ready(getCard);
-
 function getCard(){
   for(var i = 0; i < localStorage.length; i++){
     var retrieveCard = localStorage.getItem(localStorage.key(i));
     var parseCard = JSON.parse(retrieveCard);
-    var refreshCard = new NewCard (parseCard.title, parseCard.body, parseCard.id, parseCard.quality);
+    var refreshCard = new NewCard (parseCard.title, parseCard.task, parseCard.quality, parseCard.id);
     refreshCard.prependCard()
   }
 }
@@ -102,7 +101,7 @@ $('.append-here').on('blur', 'p', function (){
   var storedId = localStorage.getItem(cardId);
   var parseObject = JSON.parse(storedId);
   var paraObject = $(this).text();
-  parseObject.body = paraObject;
+  parseObject.task = paraObject;
   var stringBody = JSON.stringify(parseObject);
   localStorage.setItem(cardId, stringBody);
 });
@@ -128,13 +127,13 @@ function filterIdeas() {
     test = true;
   }
   this.style.display = test ? '' : 'none';
-  });
+});
 }
 
 function enableSaveButton() {
   var inputTittle = $('#input-title').val();
-  var inputBody = $('#input-body').val();
-  if (inputTittle == '' || inputBody == '') {
+  var inputTask = $('#input-Task').val();
+  if (inputTittle == '' || inputTask == '') {
     $('#save-btn').prop('disabled', true);
   } else {
     $('#save-btn').prop('disabled', false);
