@@ -131,7 +131,7 @@ function filterIdeas() {
 
 function enableSaveButton() {
   var inputTittle = $('#input-title').val();
-  var inputTask = $('#input-Task').val();
+  var inputTask = $('#input-task').val();
   if (inputTittle == '' || inputTask == '') {
     $('#save-btn').prop('disabled', true);
   } else {
