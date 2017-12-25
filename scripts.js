@@ -134,11 +134,11 @@ function filterIdeas() {
 function enableSaveButton() {
   var inputTittle = $('#input-title').val();
   var inputBody = $('#input-body').val();
-    if (inputTittle == '' || inputBody == '') {
-      $('#save-btn').prop('disabled', true);
-    } else {
-      $('#save-btn').prop('disabled', false);
-    }
+  if (inputTittle == '' || inputBody == '') {
+    $('#save-btn').prop('disabled', true);
+  } else {
+    $('#save-btn').prop('disabled', false);
+  }
 }
 
 function disableSaveButton() {
