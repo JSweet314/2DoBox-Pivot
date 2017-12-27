@@ -7,14 +7,14 @@ $('#save-btn').on('click', createCard);
 $('.append-here').on('click', '#delete-btn', removeCard);
 $('.append-here').on('click', '#upvote-btn', upVote);
 $('.append-here').on('click', '#downvote-btn', downVote);
-$('.append-here').on('blur', 'h3', editTittle);
+$('.append-here').on('blur', 'h3', editTitle);
 $('.append-here').on('blur', 'p', editTask);
 
-function NewCard (title, task, quality, id){
-  this.id = id || Date.now();
+function NewCard (title, task) {
+  this.id = Date.now();
   this.title = title;
   this.task = task;
-  this.quality = quality || ' swill';
+  this.quality = ' swill';
 }
 
 function createCard(event) {
@@ -38,17 +38,16 @@ function prependCard(card) {
   </article>`);
 }
 
-function storeCard(card){
+function storeCard(card) {
   var stringifiedCard = JSON.stringify(card);
   localStorage.setItem(card.id, stringifiedCard);
 }
 
-function getCard(){
-  for(var i = 0; i < localStorage.length; i++){
+function getCard() {
+  for(var i = 0; i < localStorage.length; i++) {
     var retrieveCard = localStorage.getItem(localStorage.key(i));
     var parseCard = JSON.parse(retrieveCard);
-    var refreshCard = new NewCard (parseCard.title, parseCard.task, parseCard.quality, parseCard.id);
-    prependCard(refreshCard)
+    prependCard(parseCard);  
   }
 }
 
@@ -90,7 +89,7 @@ function downVote() {
   localStorage.setItem(cardId, stringedId);
 }
 
-function editTittle() {
+function editTitle() {
   var cardId = $(this).parent().attr('id');
   var storedId = localStorage.getItem(cardId);
   var parseObject = JSON.parse(storedId);
