@@ -10,6 +10,7 @@ $('.append-here').on('blur', 'h3', editTitle);
 $('.append-here').on('blur', 'p', editTask);
 $('.append-here').on('click', '#completed-task', strikeCompletedTask);
 $('#show-complete').on('click', getCompletedCards);
+$('#show-more-cards').on('click', getMoreThanTenCards);
 
 function NewCard (title, task) {
   this.id = Date.now();
@@ -29,7 +30,15 @@ function createCard(event) {
 }
 
 function prependCard(card) {
- $('.append-here').prepend(`<article class="cards" id="${card.id}">
+ $('.append-here').prepend(templateLiteral(card));
+}
+
+function appendCard(card) {
+ $('.append-here').append(templateLiteral(card));
+}
+
+function templateLiteral(card) {
+  return `<article class="cards" id="${card.id}">
   <button class="top-card card-button" id="delete-btn"></button>
   <h3 class="top-card ${card.complete ? 'strike-through' : ''}">${card.title}</h3>
   <p class="${card.complete ? 'strike-through' : ''}">${card.task}</p>
@@ -38,7 +47,7 @@ function prependCard(card) {
   <h6 class="bottom-line">quality: <span class="quality-change">${card.importance}</span></h6>
   <button id="completed-task">Completed Task</button>
   <hr>
-  </article>`);
+  </article>`;
 }
 
 function strikeCompletedTask() {
@@ -61,13 +70,31 @@ function retrieveCard(cardId) {
 }
 
 function getIncompleteCards() {
+  if (localStorage.length > 10) {
+    getFirstTenCards();
+  } else {
+    getAllIncomplete();
+  }
+}
+
+function getAllIncomplete() {
   for(var i = 0; i < localStorage.length; i++) {
     var retrieveCard = localStorage.getItem(localStorage.key(i));
     var parseCard = JSON.parse(retrieveCard);
     if (parseCard.complete === false) {
       prependCard(parseCard);  
     }
-  }
+  } 
+}
+
+function getFirstTenCards() {
+  for(var i = localStorage.length - 10; i < localStorage.length; i++) {
+    var retrieveCard = localStorage.getItem(localStorage.key(i));
+    var parseCard = JSON.parse(retrieveCard);
+    if (parseCard.complete === false) {
+      prependCard(parseCard);  
+    }
+  } 
 }
 
 function getCompletedCards() {
@@ -78,6 +105,16 @@ function getCompletedCards() {
       prependCard(parseCard);  
     }
   }
+}
+
+function getMoreThanTenCards() {
+  for(var i = localStorage.length - 11; i >= 0; i--) {
+    var retrieveCard = localStorage.getItem(localStorage.key(i));
+    var parseCard = JSON.parse(retrieveCard);
+    if (parseCard.complete === false) {
+      appendCard(parseCard);  
+    }
+  } 
 }
 
 function removeCard() {
@@ -142,7 +179,7 @@ function filterIdeas() {
     test = true;
   }
   this.style.display = test ? '' : 'none';
-  });
+});
 }
 
 function enableSaveButton() {
