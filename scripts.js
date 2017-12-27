@@ -5,8 +5,8 @@ $('#search-field').on('keyup', filterIdeas);
 $('.header').on('keyup', '#input-title, #input-task', enableSaveButton);
 $('#save-btn').on('click', createCard);
 $('.append-here').on('click', '#delete-btn', removeCard);
-$('.append-here').on('click', '#upvote-btn', upVote);
-$('.append-here').on('click', '#downvote-btn', downVote);
+$('.append-here').on('click', '#upvote-btn, #downvote-btn', changeImportance);
+// $('.append-here').on('click', '#downvote-btn', downVote);
 $('.append-here').on('blur', 'h3', editTitle);
 $('.append-here').on('blur', 'p', editTask);
 
@@ -14,7 +14,7 @@ function NewCard (title, task) {
   this.id = Date.now();
   this.title = title;
   this.task = task;
-  this.quality = ' swill';
+  this.importance = 'normal';
 }
 
 function createCard(event) {
@@ -33,7 +33,7 @@ function prependCard(card) {
   <p>${card.task}</p>
   <button class="card-button bottom-line" id="upvote-btn"></button>
   <button class="card-button bottom-line" id="downvote-btn"></button>
-  <h6 class="bottom-line">quality:<span class="quality-change">${card.quality}</span></h6>
+  <h6 class="bottom-line">quality: <span class="quality-change">${card.importance}</span></h6>
   <hr>
   </article>`);
 }
@@ -41,6 +41,12 @@ function prependCard(card) {
 function storeCard(card) {
   var stringifiedCard = JSON.stringify(card);
   localStorage.setItem(card.id, stringifiedCard);
+}
+
+function retrieveCard(cardId) {
+  var storedId = localStorage.getItem(cardId);
+  var parseId = JSON.parse(storedId);
+  return parseId;
 }
 
 function getCard() {
@@ -57,10 +63,24 @@ function removeCard() {
   localStorage.removeItem(idRemoved);
 }
 
+function changeImportance() {
+  var cardId = $(this).parent().attr('id');
+  var parsedCard = retrieveCard(cardId);
+  var htmlText = $(this).siblings('h6').children('span');
+  var arrayOptions = ['none', 'low', 'normal', 'high', 'critical']
+  var index = arrayOptions.indexOf(htmlText.text());
+  if (event.target.id === 'upvote-btn') {
+    htmlText.text(arrayOptions[index + 1]);
+  } else {
+    htmlText.text(arrayOptions[index - 1]);
+  }
+  parsedCard.importance = htmlText.text();
+  storeCard(parsedCard);
+}
+
 function upVote() {
   var cardId = $(this).parent().attr('id');
-  var storedId = localStorage.getItem(cardId);
-  var parseId = JSON.parse(storedId);
+  var parseId = retrieveCard(cardId);
   var htmlText = $(this).siblings('h6').children('span');
   if(htmlText.text() === ' swill') {
     htmlText.text(' plausible');
