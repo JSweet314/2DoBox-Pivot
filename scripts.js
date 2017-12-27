@@ -1,4 +1,4 @@
-$(document).ready(getCard);
+$(document).ready(getIncompleteCards);
 $('.append-here').on('click', 'h3, p', enableEditableContent);
 $('.append-here').on('keydown', 'h3, p', enterDisablesEditableContent);
 $('#search-field').on('keyup', filterIdeas);
@@ -6,15 +6,17 @@ $('.header').on('keyup', '#input-title, #input-task', enableSaveButton);
 $('#save-btn').on('click', createCard);
 $('.append-here').on('click', '#delete-btn', removeCard);
 $('.append-here').on('click', '#upvote-btn, #downvote-btn', changeImportance);
-// $('.append-here').on('click', '#downvote-btn', downVote);
 $('.append-here').on('blur', 'h3', editTitle);
 $('.append-here').on('blur', 'p', editTask);
+$('.append-here').on('click', '#completed-task', strikeCompletedTask);
+$('#show-complete').on('click', getCompletedCards);
 
 function NewCard (title, task) {
   this.id = Date.now();
   this.title = title;
   this.task = task;
   this.importance = 'normal';
+  this.complete = false;
 }
 
 function createCard(event) {
@@ -29,13 +31,22 @@ function createCard(event) {
 function prependCard(card) {
  $('.append-here').prepend(`<article class="cards" id="${card.id}">
   <button class="top-card card-button" id="delete-btn"></button>
-  <h3 class="top-card">${card.title}</h3>
-  <p>${card.task}</p>
+  <h3 class="top-card ${card.complete ? 'strike-through' : ''}">${card.title}</h3>
+  <p class="${card.complete ? 'strike-through' : ''}">${card.task}</p>
   <button class="card-button bottom-line" id="upvote-btn"></button>
   <button class="card-button bottom-line" id="downvote-btn"></button>
   <h6 class="bottom-line">quality: <span class="quality-change">${card.importance}</span></h6>
+  <button id="completed-task">Completed Task</button>
   <hr>
   </article>`);
+}
+
+function strikeCompletedTask() {
+  $(this).parent().children('p, h3').toggleClass('strike-through');
+  var storageId = $(this).parent().attr('id');
+  var parsedCard = retrieveCard(storageId);
+  parsedCard.complete = parsedCard.complete ? false : true;
+  storeCard(parsedCard);
 }
 
 function storeCard(card) {
@@ -49,11 +60,23 @@ function retrieveCard(cardId) {
   return parseId;
 }
 
-function getCard() {
+function getIncompleteCards() {
   for(var i = 0; i < localStorage.length; i++) {
     var retrieveCard = localStorage.getItem(localStorage.key(i));
     var parseCard = JSON.parse(retrieveCard);
-    prependCard(parseCard);  
+    if (parseCard.complete === false) {
+      prependCard(parseCard);  
+    }
+  }
+}
+
+function getCompletedCards() {
+  for(var i = 0; i < localStorage.length; i++) {
+    var retrieveCard = localStorage.getItem(localStorage.key(i));
+    var parseCard = JSON.parse(retrieveCard);
+    if (parseCard.complete === true) {
+      prependCard(parseCard);  
+    }
   }
 }
 
@@ -76,37 +99,6 @@ function changeImportance() {
   }
   parsedCard.importance = htmlText.text();
   storeCard(parsedCard);
-}
-
-function upVote() {
-  var cardId = $(this).parent().attr('id');
-  var parseId = retrieveCard(cardId);
-  var htmlText = $(this).siblings('h6').children('span');
-  if(htmlText.text() === ' swill') {
-    htmlText.text(' plausible');
-    parseId.quality = ' plausible';
-  } else if(htmlText.text() === ' plausible') {
-    htmlText.text(' genius');
-    parseId.quality = 'genius';
-  };
-  var stringedId = JSON.stringify(parseId);
-  localStorage.setItem(cardId, stringedId);
-}
-
-function downVote() {
-  var cardId = $(this).parent().attr('id');
-  var storedId = localStorage.getItem(cardId);
-  var parseId = JSON.parse(storedId);
-  var htmlText = $(this).siblings('h6').children('span');
-  if(htmlText.text() === ' genius') {
-    htmlText.text(' plausible');
-    parseId.quality = ' plausible';
-  } else if(htmlText.text() === ' plausible') {
-    htmlText.text(' swill');
-    parseId.quality = 'swill';
-  };
-  var stringedId = JSON.stringify(parseId);
-  localStorage.setItem(cardId, stringedId);
 }
 
 function editTitle() {
