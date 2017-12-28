@@ -49,9 +49,10 @@ p {
 }
 
 .input-boxes::placeholder {
-    color: #939598;
+  color: #939598;
 }
 
+#show-more-cards,
 #show-complete,
 #save-btn {
   background-color: #00A79D;
@@ -62,7 +63,9 @@ p {
   letter-spacing: .05rem;
 }
 
-#show-complete,
+#completed-task:hover,
+#show-more-cards:hover,
+#show-complete:hover, 
 #save-btn:hover {
 	background-color: #045E55;
 }
@@ -116,7 +119,7 @@ p {
   margin-right: 3rem;
 }
 #upvote-btn:hover {
- background-image: url('images/upvote-hover.svg');
+  background-image: url('images/upvote-hover.svg');
 }
 
 #downvote-btn {
@@ -133,6 +136,7 @@ p {
   display: inline-block;
   margin: 2rem auto;
 }
+
 img {
   width: 2rem;
   height: 2rem;
@@ -152,6 +156,42 @@ hr {
   border-color: #d1d3d4;
 }
 
+#completed-task {
+  float: right;
+  position: relative;
+  top: 0.5rem;
+  background: #d0d2d3;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.strike-through {
+  text-decoration: line-through;
+}
+
+#show-more-cards,
+#show-complete {
+  display: block;
+  width: 100%;
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.show-importance {
+  background: #00A79D;
+  color: #fff;
+  height: 3rem;
+  width: 18%;
+  margin: 0 .4rem 1rem 0;
+  position: relative;
+  left: 1.5rem;
+  font-size: 2rem;
+}
+
+#show-more-cards {
+  margin-top: 1rem;
+}
+
 @media screen and (max-width: 1600px) {
 
   #show-complete,
@@ -164,6 +204,19 @@ hr {
 
   h1 {
     font-size: 7.5rem;
+  }
+}
+
+@media screen and (max-width: 825px) {
+  
+  #completed-task {
+    display: block;
+    float: none;
+    margin: auto;
+  }
+  
+  hr {
+    margin-top: 2rem;
   }
 }
 
@@ -243,22 +296,6 @@ hr {
     font-size: 2.4rem;
   }
 }
-
-#completed-task {
-  float: right;
-  position: relative;
-  top: 0.5rem;
-}
-
-.strike-through {
-  text-decoration: line-through;
-}
-
-
-
-
-
-
 
 
 
