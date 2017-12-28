@@ -1,6 +1,5 @@
 $(document).ready(getIncompleteCards);
 $('#input-title, #input-task').on('keyup', toggleSaveButton);
-$('#input-task').on('keyup', toggleSaveByCharacterCount);
 $('#save-btn').on('click', createCard);
 $('#search-field').on('keyup', filterSearchText);
 $('.append-here').on('click', '#delete-btn', removeCard);
@@ -50,7 +49,7 @@ function toggleSaveButton() {
   if (inputTittle == '' || inputTask == '') {
     disableSaveButton();
   } else {
-    characterCount();
+    toggleSaveByCharacterCount();
   }
 }
 
