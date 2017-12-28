@@ -49,7 +49,7 @@ function toggleSaveButton() {
   if (inputTittle == '' || inputTask == '') {
     disableSaveButton();
   } else {
-    enableSaveButton();
+    toggleSaveByCharacterCount();
   }
 }
 
@@ -209,4 +209,12 @@ function displayCardsByImportance(event) {
     var comparisonText = $(this).find('span').text();
     this.style.display = comparisonText === choice ? '' : 'none';
   });
+}
+
+function toggleSaveByCharacterCount() {
+  if ($('#input-task').val().length > 120) {
+    disableSaveButton();
+  } else {
+    enableSaveButton();
+  }
 }
