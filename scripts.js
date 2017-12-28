@@ -11,6 +11,7 @@ $('.append-here').on('click', '#upvote-btn, #downvote-btn', changeImportance);
 $('.append-here').on('click', '#completed-task', strikeCompletedTask);
 $('#show-complete').on('click', getCompletedCards);
 $('#show-more-cards').on('click', getMoreThanTenCards);
+$('.show-importance').on('click', displayCardsByImportance);
 
 function createCard(event) {
   event.preventDefault();
@@ -200,4 +201,12 @@ function clearInputFields() {
   $('#input-title').val('');
   $('#input-task').val('');
   $('#input-title').focus();
+}
+
+function displayCardsByImportance(event) {
+  var choice = $(event.target).text().toLowerCase();
+  $('article').each(function(){
+    var comparisonText = $(this).find('span').text();
+    this.style.display = comparisonText === choice ? '' : 'none';
+  });
 }
