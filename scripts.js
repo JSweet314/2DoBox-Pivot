@@ -31,14 +31,14 @@ function NewCard (title, task) {
 
 function cardTemplateBuilder(card) {
   return `<article class="cards" id="${card.id}">
-  <button class="top-card card-button" id="delete-btn"></button>
-  <h3 class="top-card ${card.complete ? 'strike-through' : ''}">${card.title}</h3>
-  <p class="${card.complete ? 'strike-through' : ''}">${card.task}</p>
-  <button class="card-button bottom-line" id="upvote-btn"></button>
-  <button class="card-button bottom-line" id="downvote-btn"></button>
-  <h6 class="bottom-line">Importance: <span class="quality-change">${card.importance}</span></h6>
-  <button id="completed-task">Completed Task</button>
-  <hr>
+    <button class="top-card card-button" id="delete-btn"></button>
+    <h3 class="top-card ${card.complete ? 'strike-through' : ''}">${card.title}</h3>
+    <p class="${card.complete ? 'strike-through' : ''}">${card.task}</p>
+    <button class="card-button bottom-line" id="upvote-btn"></button>
+    <button class="card-button bottom-line" id="downvote-btn"></button>
+    <h6 class="bottom-line">Importance: <span class="quality-change">${card.importance}</span></h6>
+    <button id="completed-task">Completed Task</button>
+    <hr>
   </article>`;
 }
 
@@ -108,17 +108,6 @@ function getFirstTenCards() {
       prependCard(parseCard);  
     }
   } 
-}
-
-function getAllIncomplete() {
-  for(var i = 0; i < localStorage.length; i++) {
-    var retrieveCard = localStorage.getItem(localStorage.key(i));
-    var parseCard = JSON.parse(retrieveCard);
-    if (parseCard.complete === false) {
-      prependCard(parseCard);  
-    }
-  }
-  $('#show-more-cards').prop('disabled', true); 
 }
 
 function getMoreThanTenCards() {
