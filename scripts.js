@@ -1,5 +1,6 @@
 $(document).ready(getIncompleteCards);
 $('#input-title, #input-task').on('keyup', toggleSaveButton);
+$('#input-task').on('keyup', toggleSaveByCharacterCount);
 $('#save-btn').on('click', createCard);
 $('#search-field').on('keyup', filterSearchText);
 $('.append-here').on('click', '#delete-btn', removeCard);
@@ -49,7 +50,7 @@ function toggleSaveButton() {
   if (inputTittle == '' || inputTask == '') {
     disableSaveButton();
   } else {
-    enableSaveButton();
+    characterCount();
   }
 }
 
@@ -209,4 +210,12 @@ function displayCardsByImportance(event) {
     var comparisonText = $(this).find('span').text();
     this.style.display = comparisonText === choice ? '' : 'none';
   });
+}
+
+function toggleSaveByCharacterCount() {
+  if ($('#input-task').val().length > 120) {
+    disableSaveButton();
+  } else {
+    enableSaveButton();
+  }
 }
