@@ -73,10 +73,9 @@ function retrieveCard(cardId) {
 
 function getAllIncomplete() {
   for(var i = 0; i < localStorage.length; i++) {
-    var retrieveCard = localStorage.getItem(localStorage.key(i));
-    var parseCard = JSON.parse(retrieveCard);
-    if (parseCard.complete === false) {
-      prependCard(parseCard);  
+    var parsedCard = retrieveCard(localStorage.key(i));
+    if (parsedCard.complete === false) {
+      prependCard(parsedCard);  
     }
   }
   $('#show-more-cards').prop('disabled', true); 
@@ -84,10 +83,9 @@ function getAllIncomplete() {
 
 function getCompletedCards() {
   for(var i = 0; i < localStorage.length; i++) {
-    var retrieveCard = localStorage.getItem(localStorage.key(i));
-    var parseCard = JSON.parse(retrieveCard);
-    if (parseCard.complete === true) {
-      prependCard(parseCard);  
+    var parsedCard = retrieveCard(localStorage.key(i));
+    if (parsedCard.complete === true) {
+      prependCard(parsedCard);  
     }
   }
 }
@@ -102,20 +100,18 @@ function getIncompleteCards() {
 
 function getFirstTenCards() {
   for(var i = localStorage.length - 10; i < localStorage.length; i++) {
-    var retrieveCard = localStorage.getItem(localStorage.key(i));
-    var parseCard = JSON.parse(retrieveCard);
-    if (parseCard.complete === false) {
-      prependCard(parseCard);  
+    var parsedCard = retrieveCard(localStorage.key(i));
+    if (parsedCard.complete === false) {
+      prependCard(parsedCard);  
     }
   } 
 }
 
 function getMoreThanTenCards() {
   for(var i = localStorage.length - 11; i >= 0; i--) {
-    var retrieveCard = localStorage.getItem(localStorage.key(i));
-    var parseCard = JSON.parse(retrieveCard);
-    if (parseCard.complete === false) {
-      appendCard(parseCard);  
+    var parsedCard = retrieveCard(localStorage.key(i));
+    if (parsedCard.complete === false) {
+      appendCard(parsedCard);  
     }
   } 
   $('#show-more-cards').prop('disabled', true);
