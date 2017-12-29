@@ -12,6 +12,7 @@ $('.append-here').on('click', '#completed-task', strikeCompletedTask);
 $('#show-complete').on('click', getCompletedCards);
 $('#show-more-cards').on('click', getMoreThanTenCards);
 $('.show-importance').on('click', displayCardsByImportance);
+$('.append-here').on('blur', '#date', setDueDate);
 
 function createCard(event) {
   event.preventDefault();
@@ -38,6 +39,7 @@ function cardTemplateBuilder(card) {
     <button class="card-button bottom-line" id="upvote-btn"></button>
     <button class="card-button bottom-line" id="downvote-btn"></button>
     <h6 class="bottom-line">Importance: <span class="quality-change">${card.importance}</span></h6>
+    <label>Due Date: <input id="date" type="date"></label>
     <button id="completed-task">Completed Task</button>
     <hr>
   </article>`;
@@ -216,5 +218,14 @@ function toggleSaveByCharacterCount() {
     disableSaveButton();
   } else {
     enableSaveButton();
+  }
+}
+
+function setDueDate() {
+  var dueDate = moment.tz($(event.target).val(), moment.tz.guess());
+  if (moment().format('MMM Do YY') > dueDate.format('MMM Do YY')) {
+    $(event.target).parents('article').toggleClass('passed-due');
+  } else {
+    $(event.target).parents('article').removeClass('passed-due');
   }
 }

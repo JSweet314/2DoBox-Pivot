@@ -196,6 +196,10 @@ hr {
   justify-content: space-evenly;
 }
 
+.passed-due {
+  background-color: #DE5555;
+}
+
 @media screen and (max-width: 1600px) {
 
   #show-complete {
