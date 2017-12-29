@@ -1,7 +1,7 @@
 @import 'reset.css';
 
 html {
-  font-size: 10px;
+  font-size: 62.5%;
 }
 
 .header {
@@ -98,6 +98,8 @@ p {
 
 .cards {
   font-family: 'Open Sans', sans-serif;
+  padding: 0 1rem;
+  margin-top: 1rem;
 }
 
 #delete-btn {
@@ -119,6 +121,7 @@ p {
   background-repeat: no-repeat;
   margin-right: 3rem;
 }
+
 #upvote-btn:hover {
    background-image: url('images/upvote-hover.svg');
 }
@@ -130,9 +133,11 @@ p {
   background-repeat: no-repeat;
   margin-right: 3rem;
 }
+
 #downvote-btn:hover {
   background-image: url('images/downvote-hover.svg');
 }
+
 .top-card {
   display: inline-block;
   margin: 2rem auto;
@@ -145,6 +150,7 @@ img {
 
 .card-button{
   border: none;
+  border-radius: 100%;
 }
 
 .bottom-line {
@@ -153,14 +159,13 @@ img {
 }
 
 hr {
-  margin-top: 3rem;
+  margin-top: 1rem;
   border-color: #d1d3d4;
 }
 
 #completed-task {
-  float: right;
-  position: relative;
-  top: 0.5rem;
+  display: block;
+  margin: 1rem auto;
   background: #d0d2d3;
   color: #fff;
   font-size: 2rem;
@@ -200,8 +205,26 @@ hr {
   background-color: #DE5555;
 }
 
-@media screen and (max-width: 1600px) {
+.passed-due h3,
+.passed-due p,
+.passed-due h6,
+.passed-due label {
+  color: #fff;
+}
 
+label {
+  float: right;
+  font-size: 2rem;
+  color: #6d6e71;
+}
+
+#date {
+  font-size: 2rem;
+  color: #6d6e71;
+  vertical-align: bottom;
+}
+
+@media screen and (max-width: 1600px) {
   #show-complete {
     width: 100%;
   }
@@ -211,31 +234,28 @@ hr {
   }
 }
 
-@media screen and (max-width: 1100px) {
-
+@media screen and (max-width: 1080px) {
   h1 {
     font-size: 7.5rem;
   }
-}
 
-@media screen and (max-width: 825px) {
-  
-  #completed-task {
-    display: block;
+  label {
     float: none;
-    margin: auto;
+    display: block;
+    margin: 1rem auto;
   }
-  
-  hr {
-    margin-top: 2rem;
+
+  #completed-task {
+    display: inline-block;
   }
 }
 
 @media screen and (max-width: 750px) {
-
   h1 {
     font-size: 7rem;
+    padding: 2rem;
   }
+
   h3 {
     font-size: 4.5rem;
   }
@@ -254,11 +274,9 @@ hr {
     width: 3rem;
     height: 3rem;
   }
-
 }
 
 @media screen and (max-width: 650px) {
-
   h1 {
     font-size: 6rem;
     padding: 2.4rem;
@@ -275,17 +293,16 @@ hr {
   
   #show-complete,
   #save-btn {
-    width: 82%;
     height: 6rem;
   }
 
+  #save-btn,
   .body {
     width: 82%;
   }
 }
 
 @media screen and (max-width: 500px) {
-
   h1 {
     font-size: 5rem;
     padding: 1.8rem;
@@ -293,7 +310,6 @@ hr {
 }
 
 @media screen and (max-width: 400px) {
-
   h1 {
     font-size: 4rem;
     padding: 1.6rem;
@@ -307,9 +323,3 @@ hr {
     font-size: 2.4rem;
   }
 }
-
-
-
-
-
-
