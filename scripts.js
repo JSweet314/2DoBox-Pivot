@@ -12,7 +12,7 @@ $('.append-here').on('click', '#completed-task', strikeCompletedTask);
 $('#show-complete').on('click', getCompletedCards);
 $('#show-more-cards').on('click', getMoreThanTenCards);
 $('.show-importance').on('click', displayCardsByImportance);
-$('.append-here').on('blur', '#date', setDueDate);
+$('.append-here').on('blur', '#date', persistDueDate);
 
 function createCard(event) {
   event.preventDefault();
@@ -29,19 +29,20 @@ function NewCard (title, task) {
   this.task = task;
   this.importance = 'normal';
   this.complete = false;
+  this.dueDate = '';
 }
 
 function cardTemplateBuilder(card) {
-  return `<article class="cards" id="${card.id}">
-    <button class="top-card card-button" id="delete-btn"></button>
-    <h3 class="top-card ${card.complete ? 'strike-through' : ''}">${card.title}</h3>
-    <p class="${card.complete ? 'strike-through' : ''}">${card.task}</p>
-    <button class="card-button bottom-line" id="upvote-btn"></button>
-    <button class="card-button bottom-line" id="downvote-btn"></button>
-    <h6 class="bottom-line">Importance: <span class="quality-change">${card.importance}</span></h6>
-    <label>Due Date: <input id="date" type="date"></label>
-    <button id="completed-task">Completed Task</button>
-    <hr>
+  return `<article class="cards ${card.dueDate && (card.dueDate < moment().format('YYYY-MM-DD')) ? 'passed-due' : ''}" id="${card.id}">
+  <button class="top-card card-button" id="delete-btn"></button>
+  <h3 class="top-card ${card.complete ? 'strike-through' : ''}">${card.title}</h3>
+  <p class="${card.complete ? 'strike-through' : ''}">${card.task}</p>
+  <button class="card-button bottom-line" id="upvote-btn"></button>
+  <button class="card-button bottom-line" id="downvote-btn"></button>
+  <h6 class="bottom-line">Importance: <span class="quality-change">${card.importance}</span></h6>
+  <label>Due Date: <input id="date" type="date" value=${card.dueDate ? card.dueDate : ''}></label>
+  <button id="completed-task">Completed Task</button>
+  <hr>
   </article>`;
 }
 
@@ -223,9 +224,22 @@ function toggleSaveByCharacterCount() {
 
 function setDueDate() {
   var dueDate = moment.tz($(event.target).val(), moment.tz.guess());
-  if (moment().format('MMM Do YY') > dueDate.format('MMM Do YY')) {
+  if (moment().format('YYYY-MM-DD') > dueDate.format('YYYY-MM-DD')) {
     $(event.target).parents('article').toggleClass('passed-due');
   } else {
     $(event.target).parents('article').removeClass('passed-due');
   }
+  return dueDate;
+}
+
+function persistDueDate(event) {
+  var dueDate = setDueDate(event);
+  var cardId = $(this).parents('article').attr('id');
+  var parsedCard = retrieveCard(cardId);
+  if (dueDate.format('YYYY-MM-DD') != 'Invalid date') {
+    parsedCard.dueDate = dueDate.format('YYYY-MM-DD');
+  } else {
+    parsedCard.dueDate = '';
+  } 
+  storeCard(parsedCard);
 }
