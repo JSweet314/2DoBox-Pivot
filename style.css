@@ -63,6 +63,7 @@ p {
   letter-spacing: .05rem;
 }
 
+.show-importance:hover,
 #completed-task:hover,
 #show-more-cards:hover,
 #show-complete:hover, 
@@ -119,7 +120,7 @@ p {
   margin-right: 3rem;
 }
 #upvote-btn:hover {
-  background-image: url('images/upvote-hover.svg');
+   background-image: url('images/upvote-hover.svg');
 }
 
 #downvote-btn {
@@ -183,8 +184,6 @@ hr {
   height: 3rem;
   width: 18%;
   margin: 0 .4rem 1rem 0;
-  position: relative;
-  left: 1.5rem;
   font-size: 2rem;
 }
 
@@ -192,9 +191,17 @@ hr {
   margin-top: 1rem;
 }
 
+.importance-buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 @media screen and (max-width: 1600px) {
 
-  #show-complete,
+  #show-complete {
+    width: 100%;
+  }
+
   #save-btn {
     width: 61%;
   }
