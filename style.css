@@ -20,6 +20,7 @@ h3 {
   font-size: 5rem;
   font-family: 'Roboto Slab', serif;
   color: #6d6e71;
+  max-width: 85%;
 }
 
 h6 {
@@ -61,6 +62,17 @@ p {
   width: 60.5%;
   margin-bottom: 3rem;
   letter-spacing: .05rem;
+}
+
+fieldset {
+  border: 1px solid #939598;
+  padding: 1rem 1rem 0 1rem;
+  margin-bottom: 2rem;
+}
+
+legend {
+  font-size: 1.5rem;
+  color: #939598;
 }
 
 .show-importance:hover,
@@ -119,11 +131,11 @@ p {
   height: 3.5rem;
   background-image: url('images/upvote.svg');
   background-repeat: no-repeat;
-  margin-right: 3rem;
+  margin-right: 1.5rem;
 }
 
 #upvote-btn:hover {
-   background-image: url('images/upvote-hover.svg');
+ background-image: url('images/upvote-hover.svg');
 }
 
 #downvote-btn {
@@ -131,7 +143,7 @@ p {
   height: 3.5rem;
   background-image: url('images/downvote.svg');
   background-repeat: no-repeat;
-  margin-right: 3rem;
+  margin-right: 1rem;
 }
 
 #downvote-btn:hover {
@@ -214,12 +226,12 @@ hr {
 
 label {
   float: right;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #6d6e71;
 }
 
 #date {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #6d6e71;
   vertical-align: bottom;
 }
@@ -266,8 +278,11 @@ label {
 
   p {
     font-size: 2.5rem;
+    width: 100%;
+    overflow:  scroll;
+    max-height: 15.3rem;
   }
- 
+
   #delete-btn,
   #downvote-btn,
   #upvote-btn {
@@ -277,6 +292,24 @@ label {
 }
 
 @media screen and (max-width: 650px) {
+  html {
+    font-size: 60%;
+  }
+
+  .importance-buttons {
+    display: block;
+  }
+  
+  #completed-task,
+  .show-importance {
+    width: 100%;
+  }
+  
+  #show-more-cards,
+  #show-complete {
+    font-size: 2rem;
+  }
+
   h1 {
     font-size: 6rem;
     padding: 2.4rem;
@@ -299,27 +332,5 @@ label {
   #save-btn,
   .body {
     width: 82%;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  h1 {
-    font-size: 5rem;
-    padding: 1.8rem;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  h1 {
-    font-size: 4rem;
-    padding: 1.6rem;
-  }
-
-  h3 {
-    font-size: 3.6rem;
-  }
-
-  p {
-    font-size: 2.4rem;
   }
 }
