@@ -97,24 +97,38 @@ function getCompletedCards() {
 }
 
 function getIncompleteCards() {
-  if (localStorage.length > 10) {
+  var completeCardCount = countCompleteCards()
+  if (localStorage.length - completeCardCount > 10) {
     getFirstTenCards();
   } else {
     getAllIncomplete();
   }
 }
 
+function countCompleteCards() {
+  var counter = 0;
+  for (var i = 0; i < localStorage.length; i++) {
+    var parsedCard = retrieveCard(localStorage.key(i));
+    if (parsedCard.complete === true) {
+      counter++;
+    }
+  }
+  return counter;
+}
+
 function getFirstTenCards() {
-  for(var i = localStorage.length - 10; i < localStorage.length; i++) {
+  var completeCardCount = countCompleteCards();
+  for (var i = localStorage.length - 10 - completeCardCount; i < localStorage.length; i++) {
     var parsedCard = retrieveCard(localStorage.key(i));
     if (parsedCard.complete === false) {
       prependCard(parsedCard);  
     }
-  } 
+  }
 }
 
 function getMoreThanTenCards() {
-  for(var i = localStorage.length - 11; i >= 0; i--) {
+  var completeCardCount = countCompleteCards();
+  for(var i = localStorage.length - 11 - completeCardCount; i >= 0; i--) {
     var parsedCard = retrieveCard(localStorage.key(i));
     if (parsedCard.complete === false) {
       appendCard(parsedCard);  
