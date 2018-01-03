@@ -1,5 +1,9 @@
+/*File organized by order of appearance on the page from top to bottom.*/
+/*Each css block is organized idiomatically*/
+
 @import 'reset.css';
 
+/*global styles*/
 html {
   font-size: 62.5%;
 }
@@ -8,6 +12,7 @@ body {
   font-family: 'Roboto Slab', serif;
 }
 
+/*header section*/
 .header {
   background-color: #E5F3F2;
   text-align: center;
@@ -17,6 +22,104 @@ h1 {
   padding: 4rem;
   color: #00A79D;
   font-size: 8rem;
+}
+
+#header-box {
+  /*styles the word 'box' in the main h1*/
+  color: #6D6E71;
+}
+
+.input-boxes {
+  border: solid #939598 .1rem;
+  height: 5rem;
+  margin: 1rem;
+  padding-left: 1rem; 
+  width: 60%;
+  font-size: 3rem;
+}
+
+.input-boxes::placeholder {
+  color: #939598;
+}
+
+.error-message {
+  margin: 0;
+  color: red;
+  font-size: 2rem;
+}
+
+#show-more-cards,
+#show-complete,
+#save-btn {
+  border-radius: 0;
+  margin-bottom: 3rem;
+  width: 60.5%;
+  background-color: #00A79D;
+  color: #FFF;
+}
+
+/*style for 'filter by importance' buttons and fieldset*/
+fieldset {
+  border: 1px solid #939598;
+  margin-bottom: 2rem;
+  padding: 1rem 1rem 0 1rem;
+}
+
+legend {
+  color: #939598;
+  font-size: 1.5rem;
+}
+
+.importance-buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.show-importance {
+  height: 3rem;
+  margin: 0 .4rem 1rem 0;
+  width: 18%;
+  background: #00A79D;
+  color: #fff;
+  font-size: 2rem;
+}
+
+/*Main section styling inclusive of search bar, task 'cards', and importance filter buttons*/
+main {
+  margin: auto;
+  width: 61%;
+}
+
+#search-field {
+  border: solid #939598 .1rem;
+  height: 5rem;
+  margin: 3rem 0;
+  padding-left: 1rem;
+  width: 100%;
+  font-size: 3rem;
+}
+
+#search-field::placeholder {
+  color: #939598;
+}
+
+#show-more-cards,
+#show-complete {
+  display: block;
+  margin: 0;
+  width: 100%;
+  font-size: 2.5rem;
+}
+
+#show-more-cards {
+  margin-top: 1rem;
+}
+
+/*Start of article 'cards' styling*/
+
+.cards {
+  margin-top: 1rem;
+  padding: 0 1rem;
 }
 
 h3 {
@@ -38,79 +141,6 @@ p {
   font-family: 'Open Sans', sans-serif;
   font-size: 3rem;
   line-height: 3.4rem;
-}
-
-#header-box {
-  color: #6D6E71;
-}
-
-.input-boxes {
-  border: solid #939598 .1rem;
-  height: 5rem;
-  margin: 1rem;
-  padding-left: 1rem; 
-  width: 60%;
-  font-size: 3rem;
-}
-
-.input-boxes::placeholder {
-  color: #939598;
-}
-
-#show-more-cards,
-#show-complete,
-#save-btn {
-  border-radius: 0;
-  margin-bottom: 3rem;
-  width: 60.5%;
-  background-color: #00A79D;
-  color: #FFF;
-}
-
-fieldset {
-  border: 1px solid #939598;
-  margin-bottom: 2rem;
-  padding: 1rem 1rem 0 1rem;
-}
-
-legend {
-  color: #939598;
-  font-size: 1.5rem;
-}
-
-.show-importance:hover,
-#completed-task:hover,
-#show-more-cards:hover,
-#show-complete:hover, 
-#save-btn:hover {
-	background-color: #045E55;
-}
-
-#save-btn:disabled {
-  background-color: #d0d2d3;
-}
-
-main {
-  margin: auto;
-  width: 61%;
-}
-
-#search-field {
-  border: solid #939598 .1rem;
-  height: 5rem;
-  margin: 3rem 0;
-  padding-left: 1rem;
-  width: 100%;
-  font-size: 3rem;
-}
-
-#search-field::placeholder {
-  color: #939598;
-}
-
-.cards {
-  margin-top: 1rem;
-  padding: 0 1rem;
 }
 
 #delete-btn,
@@ -153,11 +183,6 @@ main {
   margin: 2rem auto;
 }
 
-img {
-  height: 2rem;
-  width: 2rem;
-}
-
 .card-button{
   border: none;
   border-radius: 100%;
@@ -185,32 +210,6 @@ hr {
   text-decoration: line-through;
 }
 
-#show-more-cards,
-#show-complete {
-  display: block;
-  margin: 0;
-  width: 100%;
-  font-size: 2.5rem;
-}
-
-.show-importance {
-  height: 3rem;
-  margin: 0 .4rem 1rem 0;
-  width: 18%;
-  background: #00A79D;
-  color: #fff;
-  font-size: 2rem;
-}
-
-#show-more-cards {
-  margin-top: 1rem;
-}
-
-.importance-buttons {
-  display: flex;
-  justify-content: space-evenly;
-}
-
 .passed-due {
   background-color: #DE5555;
 }
@@ -234,19 +233,29 @@ label {
   font-size: 1.5rem;
 }
 
-.error-message {
-  margin: 0;
-  color: red;
-  font-size: 2rem;
+/*Hover and disabled states for buttons*/
+
+.show-importance:hover,
+#completed-task:hover,
+#show-more-cards:hover,
+#show-complete:hover, 
+#save-btn:hover {
+  background-color: #045E55;
 }
 
-@media screen and (max-width: 1600px) {
-  #show-complete {
-    width: 100%;
-  }
+#save-btn:disabled {
+  background-color: #d0d2d3;
+}
 
+/*Start of media queries, large to small*/
+
+@media screen and (max-width: 1600px) {
   #save-btn {
     width: 61%;
+  }
+
+  #show-complete {
+    width: 100%;
   }
 }
 
@@ -299,25 +308,6 @@ label {
     font-size: 60%;
   }
 
-  .importance-buttons {
-    display: block;
-  }
-  
-  #completed-task,
-  .show-importance {
-    width: 100%;
-  }
-  
-  #show-more-cards,
-  #show-complete {
-    font-size: 2rem;
-  }
-
-  h1 {
-    padding: 2.4rem;
-    font-size: 6rem;
-  }
-
   .input-boxes {
     width: 80%;
   }
@@ -333,7 +323,26 @@ label {
   }
 
   #save-btn,
-  .body {
+  main {
     width: 82%;
+  }
+
+  #show-more-cards,
+  #show-complete {
+    font-size: 2rem;
+  }
+  
+  .importance-buttons {
+    display: block;
+  }
+  
+  #completed-task,
+  .show-importance {
+    width: 100%;
+  }
+  
+  h1 {
+    padding: 2.4rem;
+    font-size: 6rem;
   }
 }
