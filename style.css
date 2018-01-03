@@ -4,23 +4,25 @@ html {
   font-size: 62.5%;
 }
 
-.header {
+body {
   font-family: 'Roboto Slab', serif;
-  text-align: center;
+}
+
+.header {
   background-color: #E5F3F2;
+  text-align: center;
 }
 
 h1 {
-  font-size: 8rem;
-  color: #00A79D;
   padding: 4rem;
+  color: #00A79D;
+  font-size: 8rem;
 }
 
 h3 {
-  font-size: 5rem;
-  font-family: 'Roboto Slab', serif;
-  color: #6d6e71;
   max-width: 85%;
+  color: #6d6e71;
+  font-size: 5rem;
 }
 
 h6 {
@@ -29,11 +31,13 @@ h6 {
 }
 
 p {
-  color: #939598;
-  font-size: 3rem;
   margin-bottom: 3rem;
-  line-height: 3.4rem;
+  overflow:  scroll;
   word-break: break-word;
+  color: #939598;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 3rem;
+  line-height: 3.4rem;
 }
 
 #header-box {
@@ -41,12 +45,11 @@ p {
 }
 
 .input-boxes {
-  width: 60%;
+  border: solid #939598 .1rem;
   height: 5rem;
-  letter-spacing: .05rem;
   margin: 1rem;
   padding-left: 1rem; 
-  border: solid #939598 .1rem;
+  width: 60%;
   font-size: 3rem;
 }
 
@@ -57,23 +60,22 @@ p {
 #show-more-cards,
 #show-complete,
 #save-btn {
+  border-radius: 0;
+  margin-bottom: 3rem;
+  width: 60.5%;
   background-color: #00A79D;
   color: #FFF;
-  border-radius: 0;
-  width: 60.5%;
-  margin-bottom: 3rem;
-  letter-spacing: .05rem;
 }
 
 fieldset {
   border: 1px solid #939598;
-  padding: 1rem 1rem 0 1rem;
   margin-bottom: 2rem;
+  padding: 1rem 1rem 0 1rem;
 }
 
 legend {
-  font-size: 1.5rem;
   color: #939598;
+  font-size: 1.5rem;
 }
 
 .show-importance:hover,
@@ -86,23 +88,20 @@ legend {
 
 #save-btn:disabled {
   background-color: #d0d2d3;
-  cursor: none;
 }
 
-.body {
-  width: 61%;
+main {
   margin: auto;
-  font-family: 'Roboto Slab', serif;
+  width: 61%;
 }
 
 #search-field {
-  letter-spacing: .05rem;
+  border: solid #939598 .1rem;
   height: 5rem;
   margin: 3rem 0;
   padding-left: 1rem;
-  font-size: 3rem;
   width: 100%;
-  border: solid #939598 .1rem;
+  font-size: 3rem;
 }
 
 #search-field::placeholder {
@@ -110,17 +109,21 @@ legend {
 }
 
 .cards {
-  font-family: 'Open Sans', sans-serif;
-  padding: 0 1rem;
   margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+#delete-btn,
+#upvote-btn,
+#downvote-btn {
+  height: 3.5rem;
+  width: 3.5rem;
+  background-repeat: no-repeat;
 }
 
 #delete-btn {
   float: right;
-  width: 3.5rem;
-  height: 3.5rem;
   background-image: url('images/delete.svg');
-  background-repeat: no-repeat;
 }
 
 #delete-btn:hover {
@@ -128,11 +131,8 @@ legend {
 }
 
 #upvote-btn {
-  width: 3.5rem;
-  height: 3.5rem;
-  background-image: url('images/upvote.svg');
-  background-repeat: no-repeat;
   margin-right: 1.5rem;
+  background-image: url('images/upvote.svg');
 }
 
 #upvote-btn:hover {
@@ -140,11 +140,8 @@ legend {
 }
 
 #downvote-btn {
-  width: 3.5rem;
-  height: 3.5rem;
-  background-image: url('images/downvote.svg');
-  background-repeat: no-repeat;
   margin-right: 1rem;
+  background-image: url('images/downvote.svg');
 }
 
 #downvote-btn:hover {
@@ -157,8 +154,8 @@ legend {
 }
 
 img {
-  width: 2rem;
   height: 2rem;
+  width: 2rem;
 }
 
 .card-button{
@@ -191,17 +188,17 @@ hr {
 #show-more-cards,
 #show-complete {
   display: block;
-  width: 100%;
   margin: 0;
+  width: 100%;
   font-size: 2.5rem;
 }
 
 .show-importance {
+  height: 3rem;
+  margin: 0 .4rem 1rem 0;
+  width: 18%;
   background: #00A79D;
   color: #fff;
-  height: 3rem;
-  width: 18%;
-  margin: 0 .4rem 1rem 0;
   font-size: 2rem;
 }
 
@@ -227,19 +224,19 @@ hr {
 
 label {
   float: right;
-  font-size: 1.5rem;
   color: #6d6e71;
+  font-size: 1.5rem;
 }
 
 #date {
-  font-size: 1.5rem;
-  color: #6d6e71;
   vertical-align: bottom;
+  color: #6d6e71;
+  font-size: 1.5rem;
 }
 
 .error-message {
-  color: red;
   margin: 0;
+  color: red;
   font-size: 2rem;
 }
 
@@ -271,8 +268,8 @@ label {
 
 @media screen and (max-width: 750px) {
   h1 {
-    font-size: 7rem;
     padding: 2rem;
+    font-size: 7rem;
   }
 
   h3 {
@@ -284,17 +281,16 @@ label {
   }
 
   p {
-    font-size: 2.5rem;
-    width: 100%;
-    overflow:  scroll;
     max-height: 15.3rem;
+    width: 100%;
+    font-size: 2.5rem;
   }
 
   #delete-btn,
   #downvote-btn,
   #upvote-btn {
-    width: 3rem;
     height: 3rem;
+    width: 3rem;
   }
 }
 
@@ -318,8 +314,8 @@ label {
   }
 
   h1 {
-    font-size: 6rem;
     padding: 2.4rem;
+    font-size: 6rem;
   }
 
   .input-boxes {
