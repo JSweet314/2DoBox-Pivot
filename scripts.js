@@ -219,8 +219,11 @@ function displayCardsByImportance(event) {
 function toggleSaveByCharacterCount() {
   if ($('#input-task').val().length > 120) {
     disableSaveButton();
+    $('.error-message').text('Please input < 120 characters.');
   } else {
     enableSaveButton();
+    $('.error-message').text('');
+
   }
 }
 

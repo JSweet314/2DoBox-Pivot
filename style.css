@@ -33,6 +33,7 @@ p {
   font-size: 3rem;
   margin-bottom: 3rem;
   line-height: 3.4rem;
+  word-break: break-word;
 }
 
 #header-box {
@@ -234,6 +235,12 @@ label {
   font-size: 1.5rem;
   color: #6d6e71;
   vertical-align: bottom;
+}
+
+.error-message {
+  color: red;
+  margin: 0;
+  font-size: 2rem;
 }
 
 @media screen and (max-width: 1600px) {
