@@ -86,12 +86,14 @@ function getAllIncomplete() {
 }
 
 function getCompletedCards() {
+  removeCompletedCards();
   for(var i = 0; i < localStorage.length; i++) {
     var parsedCard = retrieveCard(localStorage.key(i));
     if (parsedCard.complete === true) {
       prependCard(parsedCard);  
     }
   }
+  $(event.target).prop('disabled', true);
 }
 
 function getIncompleteCards() {
@@ -242,4 +244,12 @@ function persistDueDate(event) {
     parsedCard.dueDate = '';
   } 
   storeCard(parsedCard);
+}
+
+function removeCompletedCards() {
+  $('article').each(function() {
+    if ($(this).find('h3').hasClass('strike-through')){
+      $(this).remove();
+    }
+  });
 }
