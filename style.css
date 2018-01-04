@@ -8,14 +8,11 @@ html {
   font-size: 62.5%;
 }
 
-body {
-  font-family: 'Roboto Slab', serif;
-}
-
 /*header section*/
 .header {
   background-color: #E5F3F2;
   text-align: center;
+  font-family: 'Roboto Slab', serif;
 }
 
 h1 {
@@ -32,8 +29,7 @@ h1 {
 .input-boxes {
   border: solid #939598 .1rem;
   height: 5rem;
-  margin: 1rem;
-  padding-left: 1rem; 
+  padding-left: 1rem;
   width: 60%;
   font-size: 3rem;
 }
@@ -42,10 +38,16 @@ h1 {
   color: #939598;
 }
 
-.error-message {
-  margin: 0;
+.char-message {
+  margin: 0 auto 1rem auto;
+  width: 60%;
+  color: #6D6E71;
+  font-size: 1.5rem;
+  text-align: right;
+}
+
+.max-char {
   color: red;
-  font-size: 2rem;
 }
 
 #show-more-cards,
@@ -126,6 +128,7 @@ h3 {
   max-width: 85%;
   color: #6d6e71;
   font-size: 5rem;
+  word-break: break-word;
 }
 
 h6 {
@@ -310,6 +313,10 @@ label {
 
   .input-boxes {
     width: 80%;
+  }
+  
+  .char-message {
+    width: 80%
   }
 
   #input-body {

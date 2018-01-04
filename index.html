@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>2DoBox</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-</head>
-<body>
-  <section class="header">
-    <h1>2Do<span id="header-box">Box</span></h1>
-    <form>
-      <input type="text" name="title" placeholder="Title" class="input-boxes" id="input-title" aria-labelledby="title">
-      <input type="text" name="task" placeholder="Task" class="input-boxes" id="input-task" aria-labelledby="task">
-      <p class="error-message"></p>
-      <button class="input-boxes" type="submit" id="save-btn" disabled="true">save</button>
-    </form>
-  </section>
-  <main>
-    <input type="search" name="search" placeholder="Search" id="search-field">
-    <fieldset>
-      <legend>Filter by Importance</legend>
-      <section class="importance-buttons">
-        <button class="show-importance">critical</button>
-        <button class="show-importance">high</button>
-        <button class="show-importance">normal</button>
-        <button class="show-importance">low</button>
-        <button class="show-importance">none</button>
-      </section>
-    </fieldset>
-    <button id="show-complete" class="input-boxes">Show Completed Tasks
-    </button>
-    <section class="append-here">
+  <head>
+    <title>2DoBox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  </head>
+  <body>
+    <section class="header">
+      <h1>2Do<span id="header-box">Box</span></h1>
+      <form>
+        <input type="text" name="title" placeholder="Title" class="input-boxes" id="input-title" maxlength="120" aria-labelledby="title">
+        <p class="char-message">Characters Left: 120</p>
+        <input type="text" name="task" placeholder="Task" class="input-boxes" id="input-task" maxlength="120" aria-labelledby="task">
+        <p class="char-message">Characters Left: 120</p>
+        <button class="input-boxes" type="submit" id="save-btn" disabled="true">save</button>
+      </form>
     </section>
-    <button id="show-more-cards" class="input-boxes">Show More Tasks</button>
-  </main>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="jquery-3.2.1.min.js"><\/script>')</script>
-  <script src="moment.js"></script>
-  <script src="moment-timezone.js"></script>
-  <script type="text/javascript" src="scripts.js"></script>
-</body>
+    <main>
+      <input type="search" name="search" placeholder="Search" id="search-field">
+      <fieldset>
+        <legend>Filter by Importance</legend>
+        <section class="importance-buttons">
+          <button class="show-importance">critical</button>
+          <button class="show-importance">high</button>
+          <button class="show-importance">normal</button>
+          <button class="show-importance">low</button>
+          <button class="show-importance">none</button>
+          <button class="show-importance">all</button>
+        </section>
+      </fieldset>
+      <button id="show-complete" class="input-boxes">Show Completed Tasks
+      </button>
+      <section class="append-here">
+      </section>
+      <button id="show-more-cards" class="input-boxes">Show More Tasks</button>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="jquery-3.2.1.min.js"><\/script>')</script>
+    <script src="moment.js"></script>
+    <script src="moment-timezone.js"></script>
+    <script type="text/javascript" src="scripts.js"></script>
+  </body>
 </html>
