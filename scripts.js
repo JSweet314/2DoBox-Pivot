@@ -134,6 +134,7 @@ function getFirstTenCards() {
       prependCard(parsedCard);  
     }
   }
+  $('#show-more-cards').show();
 }
 
 function getMoreThanTenCards() {
@@ -167,6 +168,22 @@ function removeCompletedCards() {
       $(this).remove();
     }
   });
+}
+
+function removeAllCards() {
+  $('article').each(function() {
+    $(this).remove();
+  });
+}
+
+function getStorageCardsByImportance(importance) {
+  removeAllCards();
+  for(var i = 0; i < localStorage.length; i++) {
+    var parsedCard = retrieveCard(localStorage.key(i));
+    if (parsedCard.importance === importance && parsedCard.complete === false) {
+      prependCard(parsedCard);  
+    }
+  }
 }
 
 function changeImportance(event) {
@@ -250,18 +267,14 @@ function resetCharCount() {
 
 function displayCardsByImportance(event) {
   var choice = $(event.target).text().toLowerCase();
-  $('article').each(function(){
-    var comparisonText = $(this).find('span').text();
-    this.style.display = comparisonText === choice ? '' : 'none';
-  });
+  getStorageCardsByImportance(choice);
+  $('#show-more-cards').hide();
   displayCardsRegardlessOfImportance(event);
 }
 
 function displayCardsRegardlessOfImportance(event) {
   if ($(event.target).text() === 'all') {
-    $('article').each(function(){
-      this.style.display = '';
-    });
+    getCards();
   }
 }
 
