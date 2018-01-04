@@ -138,7 +138,7 @@ function getFirstTenCards() {
 
 function getMoreThanTenCards() {
   var completeCardCount = countCompleteCards();
-  for(var i = localStorage.length - 10 - completeCardCount; i >= 0; i--) {
+  for(var i = localStorage.length - 11 - completeCardCount; i >= 0; i--) {
     var parsedCard = retrieveCard(localStorage.key(i));
     if (parsedCard.complete === false) {
       appendCard(parsedCard);  
