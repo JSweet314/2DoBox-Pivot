@@ -82,7 +82,7 @@ function getAllIncomplete() {
       prependCard(parsedCard);  
     }
   }
-  $('#show-more-cards').prop('disabled', true); 
+  $('#show-more-cards').hide(); 
 }
 
 function getCompletedCards() {
@@ -93,12 +93,13 @@ function getCompletedCards() {
       prependCard(parsedCard);  
     }
   }
-  $(event.target).prop('disabled', true);
+  $(event.target).hide();
 }
 
 function getIncompleteCards() {
-  var completeCardCount = countCompleteCards()
-  if (localStorage.length - completeCardCount > 10) {
+  var completedTasksCount = countCompleteCards()
+  hideShowCompletedTasksButton(completedTasksCount)
+  if (localStorage.length - completedTasksCount > 10) {
     getFirstTenCards();
   } else {
     getAllIncomplete();
@@ -114,6 +115,12 @@ function countCompleteCards() {
     }
   }
   return counter;
+}
+
+function hideShowCompletedTasksButton(completedTasksCount) {
+  if (completedTasksCount === 0) {
+    $('#show-complete').hide();
+  }
 }
 
 function getFirstTenCards() {
@@ -235,7 +242,7 @@ function toggleSaveByCharacterCount() {
     disableSaveButton();
     $('.error-message').text('Please input < 120 characters.');
   } else {
-    enableSaveButton();
+    // enableSaveButton();
     $('.error-message').text('');
 
   }
