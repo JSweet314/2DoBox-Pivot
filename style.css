@@ -39,6 +39,8 @@ h1 {
 }
 
 .char-message {
+  position: relative;
+  bottom: 0.5rem;
   margin: 0 auto 1rem auto;
   width: 60%;
   color: #6D6E71;
@@ -69,7 +71,7 @@ fieldset {
 
 legend {
   color: #939598;
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 .importance-buttons {
@@ -96,7 +98,7 @@ main {
   border: solid #939598 .1rem;
   height: 5rem;
   margin: 3rem 0;
-  padding-left: 1rem;
+  padding: 1rem;
   width: 100%;
   font-size: 3rem;
 }
@@ -207,6 +209,7 @@ hr {
   background: #d0d2d3;
   color: #fff;
   font-size: 2rem;
+  width: 20rem;
 }
 
 .strike-through {
@@ -227,13 +230,13 @@ hr {
 label {
   float: right;
   color: #6d6e71;
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 #date {
   vertical-align: bottom;
   color: #6d6e71;
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 /*Hover and disabled states for buttons*/
@@ -289,7 +292,7 @@ label {
   }
 
   h6 {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 
   p {
