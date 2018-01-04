@@ -123,6 +123,8 @@ function countCompleteCards() {
 function hideShowCompletedTasksButton(completedTasksCount) {
   if (completedTasksCount === 0) {
     $('#show-complete').hide();
+  } else {
+    $('#show-complete').show();
   }
 }
 
@@ -275,6 +277,8 @@ function displayCardsByImportance(event) {
 function displayCardsRegardlessOfImportance(event) {
   if ($(event.target).text() === 'all') {
     getCards();
+    var completeCardCount = countCompleteCards();
+    hideShowCompletedTasksButton(completeCardCount);
   }
 }
 
