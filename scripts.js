@@ -242,9 +242,9 @@ function clearInputFields() {
 }
 
 function resetCharCount() {
-  $('.char-message').each(function () {
+  $('.character-count').each(function () {
     $(this).text('Characters Left: 120');
-    $(this).removeClass('max-char');
+    $(this).removeClass("max-characters");
   });
 }
 
@@ -266,15 +266,15 @@ function displayCardsRegardlessOfImportance(event) {
 }
 
 function updateCharacterCount(element, nth) { 
-  $(`.char-message:nth-of-type(${nth})`).text(`Characters Left: ${120 - $(element).val().length}`);
+  $(`.character-count:nth-of-type(${nth})`).text(`Characters Left: ${120 - $(element).val().length}`);
   maxCharDisplay(element, nth);
 }
 
 function maxCharDisplay(element, nth) {
   if ($(element).val().length === 120) {
-    $(`.char-message:nth-of-type(${nth})`).addClass('max-char');
+    $(`.character-count:nth-of-type(${nth})`).addClass("max-characters");
   } else {
-    $(`.char-message:nth-of-type(${nth})`).removeClass('max-char');
+    $(`.character-count:nth-of-type(${nth})`).removeClass("max-characters");
   }
 }
 
