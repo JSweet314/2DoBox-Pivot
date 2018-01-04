@@ -1,18 +1,32 @@
-$(document).ready(getIncompleteCards);
+$(document).ready(getCards);
 $('#input-title, #input-task').on('keyup', toggleSaveButton);
 $('#save-btn').on('click', createCard);
 $('#search-field').on('keyup', filterSearchText);
+$('.show-importance').on('click', displayCardsByImportance);
+$('#show-complete').on('click', getCompletedCards);
+$('#show-more-cards').on('click', getMoreThanTenCards);
 $('.append-here').on('click', '#delete-btn', removeCard);
 $('.append-here').on('click', 'h3, p', enableEditableContent);
 $('.append-here').on('keydown', 'h3, p', enterDisablesEditableContent);
 $('.append-here').on('blur', 'h3', editTitle);
 $('.append-here').on('blur', 'p', editTask);
-$('.append-here').on('click', '#upvote-btn, #downvote-btn', changeImportance);
 $('.append-here').on('click', '#completed-task', strikeCompletedTask);
-$('#show-complete').on('click', getCompletedCards);
-$('#show-more-cards').on('click', getMoreThanTenCards);
-$('.show-importance').on('click', displayCardsByImportance);
 $('.append-here').on('blur', '#date', persistDueDate);
+$('.append-here').on('click', '#upvote-btn, #downvote-btn', changeImportance);
+
+function cardTemplateBuilder(card) {
+  return `<article class="cards ${card.dueDate && (card.dueDate < moment().format('YYYY-MM-DD')) ? 'passed-due' : ''}" id="${card.id}">
+  <button class="top-card card-button" id="delete-btn"></button>
+  <h3 class="top-card ${card.complete ? 'strike-through' : ''}">${card.title}</h3>
+  <p class="${card.complete ? 'strike-through' : ''}">${card.task}</p>
+  <button class="card-button bottom-line" id="upvote-btn"></button>
+  <button class="card-button bottom-line" id="downvote-btn"></button>
+  <h6 class="bottom-line">Importance: <span class="quality-change">${card.importance}</span></h6>
+  <label>Due Date: <input id="date" type="date" value=${card.dueDate ? card.dueDate : ''}></label>
+  <button id="completed-task">Task Completed</button>
+  <hr>
+  </article>`;
+}
 
 function createCard(event) {
   event.preventDefault();
@@ -32,19 +46,6 @@ function NewCard (title, task) {
   this.dueDate = '';
 }
 
-function cardTemplateBuilder(card) {
-  return `<article class="cards ${card.dueDate && (card.dueDate < moment().format('YYYY-MM-DD')) ? 'passed-due' : ''}" id="${card.id}">
-  <button class="top-card card-button" id="delete-btn"></button>
-  <h3 class="top-card ${card.complete ? 'strike-through' : ''}">${card.title}</h3>
-  <p class="${card.complete ? 'strike-through' : ''}">${card.task}</p>
-  <button class="card-button bottom-line" id="upvote-btn"></button>
-  <button class="card-button bottom-line" id="downvote-btn"></button>
-  <h6 class="bottom-line">Importance: <span class="quality-change">${card.importance}</span></h6>
-  <label>Due Date: <input id="date" type="date" value=${card.dueDate ? card.dueDate : ''}></label>
-  <button id="completed-task">Completed Task</button>
-  <hr>
-  </article>`;
-}
 
 function toggleSaveButton() {
   var inputTittle = $('#input-title').val();
@@ -52,8 +53,10 @@ function toggleSaveButton() {
   if (inputTittle == '' || inputTask == '') {
     disableSaveButton();
   } else {
-    toggleSaveByCharacterCount();
+    enableSaveButton();
   }
+  updateCharacterCount('#input-title', 1);
+  updateCharacterCount('#input-task', 2);
 }
 
 function strikeCompletedTask() {
@@ -96,7 +99,7 @@ function getCompletedCards() {
   $(event.target).hide();
 }
 
-function getIncompleteCards() {
+function getCards() {
   var completedTasksCount = countCompleteCards()
   hideShowCompletedTasksButton(completedTasksCount)
   if (localStorage.length - completedTasksCount > 10) {
@@ -141,7 +144,7 @@ function getMoreThanTenCards() {
       appendCard(parsedCard);  
     }
   } 
-  $('#show-more-cards').prop('disabled', true);
+  $('#show-more-cards').hide();
 }
 
 function appendCard(card) {
@@ -158,16 +161,24 @@ function removeCard() {
   localStorage.removeItem(idRemoved);
 }
 
+function removeCompletedCards() {
+  $('article').each(function() {
+    if ($(this).find('h3').hasClass('strike-through')){
+      $(this).remove();
+    }
+  });
+}
+
 function changeImportance(event) {
   var cardId = $(this).parent().attr('id');
   var parsedCard = retrieveCard(cardId);
   var htmlText = $(this).siblings('h6').children('span');
-  toggleImportanceText(htmlText);
+  updateImportanceText(htmlText);
   parsedCard.importance = htmlText.text();
   storeCard(parsedCard);
 }
 
-function toggleImportanceText(htmlText) {
+function updateImportanceText(htmlText) {
   var arrayOptions = ['none', 'low', 'normal', 'high', 'critical'];
   var index = arrayOptions.indexOf(htmlText.text());
   if (event.target.id === 'upvote-btn') {
@@ -226,7 +237,15 @@ function enableSaveButton() {
 function clearInputFields() {
   $('#input-title').val('');
   $('#input-task').val('');
+  resetCharCount();
   $('#input-title').focus();
+}
+
+function resetCharCount() {
+  $('.character-count').each(function () {
+    $(this).text('Characters Left: 120');
+    $(this).removeClass("max-characters");
+  });
 }
 
 function displayCardsByImportance(event) {
@@ -235,23 +254,34 @@ function displayCardsByImportance(event) {
     var comparisonText = $(this).find('span').text();
     this.style.display = comparisonText === choice ? '' : 'none';
   });
+  displayCardsRegardlessOfImportance(event);
 }
 
-function toggleSaveByCharacterCount() {
-  if ($('#input-task').val().length > 120) {
-    disableSaveButton();
-    $('.error-message').text('Please input < 120 characters.');
-  } else {
-    // enableSaveButton();
-    $('.error-message').text('');
+function displayCardsRegardlessOfImportance(event) {
+  if ($(event.target).text() === 'all') {
+    $('article').each(function(){
+      this.style.display = '';
+    });
+  }
+}
 
+function updateCharacterCount(element, nth) { 
+  $(`.character-count:nth-of-type(${nth})`).text(`Characters Left: ${120 - $(element).val().length}`);
+  maxCharDisplay(element, nth);
+}
+
+function maxCharDisplay(element, nth) {
+  if ($(element).val().length === 120) {
+    $(`.character-count:nth-of-type(${nth})`).addClass("max-characters");
+  } else {
+    $(`.character-count:nth-of-type(${nth})`).removeClass("max-characters");
   }
 }
 
 function setDueDate() {
   var dueDate = moment.tz($(event.target).val(), moment.tz.guess());
   if (moment().format('YYYY-MM-DD') > dueDate.format('YYYY-MM-DD')) {
-    $(event.target).parents('article').toggleClass('passed-due');
+    $(event.target).parents('article').addClass('passed-due');
   } else {
     $(event.target).parents('article').removeClass('passed-due');
   }
@@ -268,12 +298,4 @@ function persistDueDate(event) {
     parsedCard.dueDate = '';
   } 
   storeCard(parsedCard);
-}
-
-function removeCompletedCards() {
-  $('article').each(function() {
-    if ($(this).find('h3').hasClass('strike-through')){
-      $(this).remove();
-    }
-  });
 }
